@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+ENV/
+anaconda_projects/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*.xml
+*.iml
+
+# Data & Models
+*.pkl
+*.csv
+similarity.pkl
+movies.pkl
+tmdb_5000_credits.csv
+tmdb_5000_movies.csv
