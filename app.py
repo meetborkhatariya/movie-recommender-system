@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import pickle
 import pandas as pd
@@ -109,12 +110,16 @@ def recommend(movie):
 
 # Load data
 try:
-    movies_dict = pickle.load(open('movies.pkl', 'rb'))
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    movies_path = os.path.join(base_dir, 'movies.pkl')
+    similarity_path = os.path.join(base_dir, 'similarity.pkl')
+
+    movies_dict = pickle.load(open(movies_path, 'rb'))
     # If it's already a DataFrame, use it directly, otherwise convert
     movies = pd.DataFrame(movies_dict) if not isinstance(movies_dict, pd.DataFrame) else movies_dict
-    similarity = pickle.load(open('similarity.pkl', 'rb'))
+    similarity = pickle.load(open(similarity_path, 'rb'))
 except FileNotFoundError:
-    st.error("Error: 'movies.pkl' or 'similarity.pkl' not found. Please ensure data files are in the directory.")
+    st.error(f"Error: 'movies.pkl' or 'similarity.pkl' not found in {base_dir}. Please ensure data files are in the directory.")
     st.stop()
 
 
