@@ -1,6 +1,7 @@
 import os
 import streamlit as st
 import pickle
+import gzip
 import pandas as pd
 import requests
 from requests.adapters import HTTPAdapter
@@ -113,11 +114,16 @@ try:
     base_dir = os.path.dirname(os.path.abspath(__file__))
     movies_path = os.path.join(base_dir, 'movies.pkl')
     similarity_path = os.path.join(base_dir, 'similarity.pkl')
+    similarity_path_gz = os.path.join(base_dir, 'similarity.pkl.gz')
 
     movies_dict = pickle.load(open(movies_path, 'rb'))
     # If it's already a DataFrame, use it directly, otherwise convert
     movies = pd.DataFrame(movies_dict) if not isinstance(movies_dict, pd.DataFrame) else movies_dict
-    similarity = pickle.load(open(similarity_path, 'rb'))
+    
+    if os.path.exists(similarity_path_gz):
+        similarity = pickle.load(gzip.open(similarity_path_gz, 'rb'))
+    else:
+        similarity = pickle.load(open(similarity_path, 'rb'))
 except FileNotFoundError:
     st.error(f"Error: 'movies.pkl' or 'similarity.pkl' not found in {base_dir}. Please ensure data files are in the directory.")
     st.stop()

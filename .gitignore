@@ -22,8 +22,7 @@ anaconda_projects/
 
 # Data & Models
 *.pkl
+!movies.pkl
 *.csv
-similarity.pkl
-movies.pkl
 tmdb_5000_credits.csv
 tmdb_5000_movies.csv
